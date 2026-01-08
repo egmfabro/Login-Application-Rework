@@ -16,11 +16,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        val database = UserDatabase.getDatabase(this)
+        val factory = LoginViewModelFactory(database.userDao())
+        viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
         val usernameInput = findViewById<EditText>(R.id.inputUsername)
         val passwordInput = findViewById<EditText>(R.id.inputPassword)
         val loginBtn = findViewById<Button>(R.id.loginButton)
+        val goToRegisterButton = findViewById<Button>(R.id.buttonToRegister)
 
         viewModel.loginResult.observe(this) { state ->
             when (state) {
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity() {
                 is LoginState.Error -> {
                     Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
                 }
+                else -> {}
             }
         }
 
@@ -41,6 +45,11 @@ class MainActivity : AppCompatActivity() {
                 usernameInput.text.toString(),
                 passwordInput.text.toString()
             )
+        }
+        
+        goToRegisterButton.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -7,4 +7,7 @@
     <string name="welcomeMessage">Welcome, User.</string>
     <string name="welcomeUser">Welcome, %s!</string>
     <string name="welcomeGuest">You are not welcome here. Go back.</string>
+    <string name="register">Register</string>
+    <string name="createAccount">Join the Tarot Club</string>
+    <string name="notYetAMember">Not a Member? Ask Mr.Fool.</string>
 </resources>
